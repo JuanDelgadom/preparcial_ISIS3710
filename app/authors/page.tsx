@@ -27,14 +27,14 @@ export default function AuthorsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-900 text-white">
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         Cargando autores...
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-10">
+    <div className="min-h-screen bg-black text-white p-10">
 
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">Autores</h1>
@@ -57,8 +57,18 @@ export default function AuthorsPage() {
 
           <div
             key={author.id}
-            className="rounded-xl bg-slate-800 p-6 shadow-lg flex flex-col justify-between"
+            className="rounded-xl bg-gray-900 p-6 shadow-lg flex flex-col justify-between"
           >
+
+            {author.image && (
+              <div className="mb-4 overflow-hidden rounded-lg h-48">
+                <img
+                  src={author.image}
+                  alt={author.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
 
             <div>
               <h3 className="text-lg font-semibold mb-2">
@@ -80,7 +90,7 @@ export default function AuthorsPage() {
 
               <Link
                 href={`edit/${author.id}`}
-                className="flex-1 text-center rounded-lg bg-slate-700 py-2 text-sm hover:bg-slate-600"
+                className="flex-1 text-center rounded-lg bg-gray-800 py-2 text-sm hover:bg-gray-700"
               >
                 Editar
               </Link>

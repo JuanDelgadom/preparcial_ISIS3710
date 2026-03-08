@@ -42,7 +42,7 @@ export default function AuthorForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 p-6"
+      className="flex flex-col gap-4 p-6 bg-gray-900 rounded-lg"
       aria-describedby={error ? "form-error" : undefined}
     >
 
@@ -87,6 +87,16 @@ export default function AuthorForm({
           onChange={(e) => setImage(e.target.value)}
           className="w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-white focus:border-indigo-500 focus:outline-none"
         />
+
+        {image && (
+          <div className="mt-2 overflow-hidden rounded-lg h-32">
+            <img
+              src={image}
+              alt="Preview"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
