@@ -40,7 +40,7 @@ export default function AuthorsPage() {
         <h1 className="text-3xl font-bold">Autores</h1>
 
         <Link
-          href="create"
+          href="crear"
           className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold hover:bg-indigo-500 transition"
         >
           Crear Autor
