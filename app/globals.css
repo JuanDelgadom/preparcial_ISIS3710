@@ -19,8 +19,104 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+body{
+  font-family: system-ui, -apple-system, sans-serif;
+  background:#0f0f10;
+  color:#e6e6e6;
+  margin:0;
+  padding:40px;
+}
+
+h1{
+  text-align:center;
+  font-weight:500;
+  margin-bottom:25px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+}
+
+/* tarjeta */
+.authorCard{
+  background:#18181b;
+  border:1px solid #2a2a2e;
+  padding:22px;
+  margin-bottom:18px;
+  border-radius:10px;
+  transition:all 0.2s ease;
+}
+
+.authorCard:hover{
+  border-color:#3a3a3f;
+}
+
+/* nombre */
+.authorCard h3{
+  margin:0 0 10px 0;
+  font-weight:500;
+  color:#ffffff;
+}
+
+/* descripcion */
+.authorCard p{
+  margin:0;
+  color:#a1a1aa;
+  line-height:1.5;
+}
+
+/* acciones */
+.actions{
+  margin-top:16px;
+  display:flex;
+  gap:10px;
+}
+
+/* botones base */
+button{
+  padding:6px 14px;
+  border-radius:6px;
+  border:none;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* editar */
+.edit{
+  background:#27272a;
+  color:#e4e4e7;
+}
+
+.edit:hover{
+  background:#3a3a3f;
+}
+
+/* eliminar */
+.delete{
+  background:#3f1d1d;
+  color:#f87171;
+}
+
+.delete:hover{
+  background:#5a2626;
+}
+
+/* crear autor */
+.createBtn{
+  display:block;
+  width:150px;
+  margin:20px auto 35px auto;
+  padding:10px;
+  text-align:center;
+  background:#1f2937;
+  border:1px solid #374151;
+  color:#e5e7eb;
+  border-radius:8px;
+  text-decoration:none;
+  transition:0.2s;
+}
+
+.createBtn:hover{
+  background:#2b3442;
 }
