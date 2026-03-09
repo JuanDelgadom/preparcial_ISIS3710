@@ -10,6 +10,8 @@ export default function AuthorsPage() {
   const [authors, setAuthors] = useState<Author[]>([])
   const [loading, setLoading] = useState(true)
 
+
+  const[searchTerm, setSearchTerm] = useState("")
   useEffect(() => {
     loadAuthors()
   }, [])
@@ -51,9 +53,35 @@ export default function AuthorsPage() {
         <p className="text-gray-400">No hay autores registrados.</p>
       )}
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {authors.length > 0 && (
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Buscar autores por nombre..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:border-indigo-500 focus:outline-none transition"
+          />
+        </div>
+      )}
 
-        {authors.map((author) => (
+      {(() => {
+        const filteredAuthors = authors.filter((author) =>
+          author.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+
+        if (filteredAuthors.length === 0 && authors.length > 0) {
+          return (
+            <p className="text-gray-400 text-center py-8">
+              No se encontraron autores con &quot;{searchTerm}&quot;
+            </p>
+          )
+        }
+
+        return (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        {filteredAuthors.map((author) => (
 
           <div
             key={author.id}
@@ -108,7 +136,9 @@ export default function AuthorsPage() {
 
         ))}
 
-      </div>
+          </div>
+        )
+      })()}
 
     </div>
   )

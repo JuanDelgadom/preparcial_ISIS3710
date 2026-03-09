@@ -1,9 +1,4 @@
-/**
- * Función para validar que un nombre de autor sea válido
- * - No debe estar vacío
- * - Debe tener al menos 2 caracteres
- * - No debe contener números
- */
+
 export function validateAuthorName(name: string): { valid: boolean; error?: string } {
   if (!name || name.trim().length === 0) {
     return {
@@ -37,7 +32,7 @@ export function validateAuthorName(name: string): { valid: boolean; error?: stri
 export function validateBirthDate(date: string): { valid: boolean; error?: string } {
   if (!date) {
     return {
-      valid: true // La fecha de nacimiento es opcional
+      valid: true 
     }
   }
 

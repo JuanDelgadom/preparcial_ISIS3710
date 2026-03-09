@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Author } from "../types/Author"
+import { validateAuthorName, validateBirthDate } from "../utils/validation"
 
 interface AuthorFormProps {
   initialData?: Author
@@ -24,12 +25,19 @@ export default function AuthorForm({
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (!name.trim()) {
-      setError("El nombre es obligatorio")
+    setError(null)
+
+    const nameValidation = validateAuthorName(name)
+    if (!nameValidation.valid) {
+      setError(nameValidation.error || "Error de validación")
       return
     }
 
-    setError(null)
+    const dateValidation = validateBirthDate(birthDate)
+    if (!dateValidation.valid) {
+      setError(dateValidation.error || "Error de validación")
+      return
+    }
 
     onSubmit({
       name,

@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Examen - Gestión de Autores
 
-## Getting Started
+## Reuisitos 
 
-First, run the development server:
+- Node.js 18+ instalado
+- npm o yarn como gestor de paquetes
+- Git (opcional, para clonar el repositorio)
 
-```bash
+## Guía de Ejecución
+
+# Instalar dependencias
+npm install
+
+
+ ## Ejecutar la Aplicación 
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# La aplicación estará disponible en http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Ejecutar la Suite de Pruebas
 
-## Learn More
+# Ejecutar todas las pruebas
+npm test
 
-To learn more about Next.js, take a look at the following resources:
+# Ejecutar pruebas en modo vigilancia (watch mode)
+npm run test:watch
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Ejecutar pruebas con cobertura
+npx jest --coverage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Reporte de Cambios Técnicos
 
-## Deploy on Vercel
+### Estrategia de Persistencia de Datos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+La persistencia de datos entre rutas se logra mediante el servicio `authorService.ts`, que implementa un patrón de API mock basado en JSON. El flujo es el siguiente:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Almacenamiento**: Los autores se almacenan en una colección interna del servicio que simula una base de datos en memoria.
+2. **CRUD Operations**: Todas las operaciones (crear, leer, actualizar, eliminar) se realizan a través de funciones asincrónicas (`getAuthors()`, `getAuthor(id)`, `createAuthor()`, `updateAuthor()`, `deleteAuthor()`).
+3. **Consistencia**: Cada página que necesita datos de autores llama a `getAuthors()`, garantizando que siempre obtiene la versión más reciente.
+4. **Revalidación**: Después de operaciones de escritura (crear, editar, eliminar), la aplicación invoca `loadAuthors()` para refrescar el estado en memoria.
+
+Esta arquitectura permite que los cambios realizados en una ruta (ej: crear en `/crear`) se reflejen inmediatamente en otras rutas (ej: listado en `/authors`).
+
+### Sistema de Filtrado en Tiempo Real
+
+El filtrado de autores se implemento:
+
+1. **Un único estado**: Se mantiene un único estado `searchTerm` en el componente `AuthorsPage`.
+2. **Cálculo directo durante renderizado**: El filtrado se realiza usando `.filter()` directamente en el JSX, sin crear un estado adicional para la lista filtrada.
+3. **Case-Insensitive**: Se usan `.toLowerCase()` tanto en el nombre como en el término de búsqueda para lograr búsquedas insensibles a mayúsculas/minúsculas.
+4. **Mensaje al usuario**: Si no hay resultados, se muestra un mensaje explícito: `"No se encontraron autores con '[término]'"`.
+
+
+
+Esta estrategia es eficiente para listas pequeñas-medianas y mejora la experiencia de usuario al proporcionar resultados instantáneos.
+
+## 🧪 Suite de Pruebas
+
+La aplicación incluye **23 pruebas unitarias** divididas en dos grupos:
+
+### Pruebas de Validación (`validation.test.ts`)
+
+### Pruebas del Formulario (`AuthorForm.test.tsx`)
+
+Para ejecutar las pruebas:
+npm test
