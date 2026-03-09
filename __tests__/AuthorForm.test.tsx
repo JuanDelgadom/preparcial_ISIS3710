@@ -216,9 +216,7 @@ describe('AuthorForm - Validación Autores', () => {
       fireEvent.click(submitButton)
 
       await waitFor(() => {
-        // No debe haber mensajes de error
         expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-        // El botón debe seguir visible y habilitado
         expect(submitButton).not.toBeDisabled()
       })
     })
